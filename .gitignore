@@ -39,3 +39,12 @@
 
 # debug information files
 *.dwo
+
+.idea/
+.vscode/
+
+# CMake files
+CMakeFiles/
+CMakeCache.txt
+
+led/led_controller
