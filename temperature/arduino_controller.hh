@@ -5,6 +5,8 @@
 #ifndef ARDUINO_ARDUINO_CONTROLLER_HH
 #define ARDUINO_ARDUINO_CONTROLLER_HH
 
+#include <string>
+#include <termios.h>
 
 class ArduinoController
 {

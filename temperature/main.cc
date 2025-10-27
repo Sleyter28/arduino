@@ -8,6 +8,8 @@
 #include <chrono>
 #include "main.hh"
 
+extern "C" void print_temp(const char*name);
+
 MainWindow::MainWindow():
     label_title("Temperature Monitor"),
     label_temperature("Current Temperature: -- °C"),
@@ -22,7 +24,7 @@ MainWindow::MainWindow():
 
     label_title.set_margin_bottom(10);
     label_temperature.set_margin_bottom(10);
-    label_temperature.set_css_class({"title-2"});
+    label_temperature.set_css_classes({"title-2"});
 
 
     button_refresh.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::on_button_refresh_clicked));
@@ -58,6 +60,7 @@ void MainWindow::start_reading() {
             if (!temp.empty()) {
                 Glib::signal_idle().connect_once([this, temp]() {
                     label_temperature.set_text("Current Temperature: " + temp + " °C");
+                    print_temp(temp.c_str());
                 });
             }
             std::this_thread::sleep_for(std::chrono::seconds(2));
@@ -70,5 +73,14 @@ MainWindow::~MainWindow() {
     if (read_thread.joinable()) {
         read_thread.join();
     }
+}
+
+int main(int argc, char *argv[])
+{
+    auto app = Gtk::Application::create("org.gtkmm.example");
+
+    MainWindow window;
+
+    return app->make_window_and_run<MainWindow>(argc, argv);
 }
 

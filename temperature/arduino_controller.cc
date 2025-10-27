@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <cstring>
+#include <algorithm>
 
 ArduinoController::ArduinoController() : serial_port(-1), connected(false) {}
 
@@ -48,7 +49,7 @@ bool ArduinoController::connect(const std::string& port) {
     return true;
 }
 
-std::string ArduinoController::readTemperature() {
+std::string ArduinoController::readData() {
     if (!connected) return "";
 
     char buffer[32];

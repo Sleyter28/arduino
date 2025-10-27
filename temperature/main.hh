@@ -18,7 +18,7 @@ public:
     ~MainWindow();
 
 private:
-    Gtk::Box vbox{Gtk::Orientation::ORIENTATION_VERTICAL};
+    Gtk::Box vbox{Gtk::Orientation::VERTICAL};
     Gtk::Label label_title, label_temperature;
     Gtk::Button button_refresh;
     ArduinoController arduino_controller;
