@@ -6,17 +6,15 @@
 #include <gtkmm-4.0/gtkmm/entry.h>
 #include "arduino_controller.hh"
 #include <iostream>
+#include "main.hh"
 
 extern "C" void hello(const char*name);
 
-class MainWindow: public Gtk::Window
-{
-public:
-    MainWindow():
+MainWindow::MainWindow():
         button_on("Turn On"),
         button_off("Turn Off"),
         button_greet("Say hello")
-    {
+{
         set_title("Arduino Controller");
         set_default_size(300, 150);
 
@@ -44,33 +42,30 @@ public:
             std::cerr << "Failed to connect to Arduino." << std::endl;
         }
 
-    };
-private:
-    Gtk::Box vbox{Gtk::Orientation::VERTICAL};
-    Gtk::Button button_on, button_off, button_greet;
-    Gtk::Label* label = Gtk::manage(new Gtk::Label("Hello Arduino!"));
-    Gtk::Entry* my_entry = Gtk::manage(new Gtk::Entry());
+}
 
-    ArduinoController arduino;
+void MainWindow::on_button_on_clicked()
+{
+    arduino.sendCommand('1');
+}
 
-    void on_button_on_clicked()
-    {
-        arduino.sendCommand('1');
-    }
+void MainWindow::on_button_off_clicked()
+{
+    arduino.sendCommand('0');
+}
 
-    void on_button_off_clicked()
-    {
-        arduino.sendCommand('0');
-    }
+void MainWindow::on_button_greet_clicked()
+{
+    std::string name = my_entry->get_text();
+    const char* cname = name.c_str();
+    hello(cname);
+    label->set_text("Hello, " + name + "!");
+}
 
-    void on_button_greet_clicked()
-    {
-        std::string name = my_entry->get_text();
-        const char* cname = name.c_str();
-        hello(cname);
-        label->set_text("Hello, " + name + "!");
-    }
-};
+MainWindow::~MainWindow()
+{
+    arduino.disconnect();
+}
 
 int main(int argc, char *argv[])
 {
