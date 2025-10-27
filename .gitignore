@@ -48,4 +48,4 @@ CMakeFiles/
 CMakeCache.txt
 
 led/led_controller
-temperature/temperature_controller
+temperature/temp_controller
