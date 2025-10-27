@@ -14,7 +14,7 @@ $(TARGET): $(SOURCES)
 	$(CXX) $(SOURCES) $(NASMTARGET) -o $(TARGET) $(CXXFLAGS) $(LDFLAGS)
 
 clean:
-	rm -f  $(TARGET)
+	rm -f  $(TARGET) $(NASMTARGET)
 
 run: $(TARGET)
 	./$(TARGET)

@@ -28,6 +28,6 @@ private:
     void on_button_on_clicked();
     void on_button_off_clicked();
     void on_button_greet_clicked();
-}
+};
 
 #endif //ARDUINO_MAIN_HH

@@ -11,11 +11,11 @@
 extern "C" void hello(const char*name);
 
 MainWindow::MainWindow():
-        button_on("Turn On"),
-        button_off("Turn Off"),
-        button_greet("Say hello")
+    button_on("Turn On"),
+    button_off("Turn Off"),
+    button_greet("Say hello")
 {
-        set_title("Arduino Controller");
+        set_title("Arduino LED Controller");
         set_default_size(300, 150);
 
         vbox.set_margin(20);
@@ -64,7 +64,6 @@ void MainWindow::on_button_greet_clicked()
 
 MainWindow::~MainWindow()
 {
-    arduino.disconnect();
 }
 
 int main(int argc, char *argv[])
